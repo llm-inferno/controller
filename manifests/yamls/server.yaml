@@ -1,0 +1,53 @@
+apiVersion: inferno.platform.ai/v1beta1
+kind: Server
+metadata:
+  name: premium-granite-13b
+spec:
+  name: "Premium-granite-13b"
+  class: "Premium"
+  model: "granite-13b"
+  currentAlloc:
+    accelerator: "A100"
+    numReplicas: 4
+    maxBatch: 16
+    cost: 1600
+    itlAverage: 25.2
+    waitAverage: 726.5
+    load:
+      arrivalRate: 10
+      avgLength: 100
+      arrivalCOV: 1
+      serviceCOV: 1
+  desiredAlloc:
+    accelerator: ""
+    numReplicas: 0
+    load:
+      arrivalRate: 0
+      avgLength: 0
+---
+apiVersion: inferno.platform.ai/v1beta1
+kind: Server
+metadata:
+  name: free-granite-13b
+spec:
+  name: "Free-granite-13b"
+  class: "Free"
+  model: "granite-13b"
+  currentAlloc:
+    accelerator: "G2"
+    numReplicas: 8
+    maxBatch: 16
+    cost: 200
+    itlAverage: 25.2
+    waitAverage: 726.5
+    load:
+      arrivalRate: 20
+      avgLength: 100
+      arrivalCOV: 1
+      serviceCOV: 1
+  desiredAlloc:
+    accelerator: ""
+    numReplicas: 0
+    load:
+      arrivalRate: 0
+      avgLength: 0

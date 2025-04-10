@@ -1,0 +1,8 @@
+## Append samples of your project ##
+resources:
+- inferno_v1beta1_accelerator.yaml
+- inferno_v1beta1_model.yaml
+- inferno_v1beta1_serviceclass.yaml
+- inferno_v1beta1_server.yaml
+- inferno_v1beta1_optimizer.yaml
+# +kubebuilder:scaffold:manifestskustomizesamples

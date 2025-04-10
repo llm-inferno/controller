@@ -1,0 +1,44 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - inferno.platform.ai
+  resources:
+  - accelerators
+  - models
+  - optimizers
+  - servers
+  - serviceclasses
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - inferno.platform.ai
+  resources:
+  - accelerators/finalizers
+  - models/finalizers
+  - optimizers/finalizers
+  - servers/finalizers
+  - serviceclasses/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - inferno.platform.ai
+  resources:
+  - accelerators/status
+  - models/status
+  - optimizers/status
+  - servers/status
+  - serviceclasses/status
+  verbs:
+  - get
+  - patch
+  - update

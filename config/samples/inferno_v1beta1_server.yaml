@@ -1,0 +1,23 @@
+apiVersion: inferno.platform.ai/v1beta1
+kind: Server
+metadata:
+  labels:
+    app.kubernetes.io/name: controller
+    app.kubernetes.io/managed-by: kustomize
+  name: server-sample
+spec:
+  name: "Premium-granite-13b"
+  class: "Premium"
+  model: "granite-13b"
+  currentAlloc:
+    accelerator: "A100"
+    numReplicas: 1
+    maxBatch: 16
+    cost: 40
+    itlAverage: 25.2
+    waitAverage: 726.5
+    load:
+      arrivalRate: 100
+      avgLength: 999
+      arrivalCOV: 1
+      serviceCOV: 1

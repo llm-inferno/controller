@@ -1,0 +1,15 @@
+apiVersion: inferno.platform.ai/v1beta1
+kind: Optimizer
+metadata:
+  labels:
+    app.kubernetes.io/name: controller
+    app.kubernetes.io/managed-by: kustomize
+  name: optimizer-sample
+spec:
+  optimize: false
+  data:
+    optimizer:
+      unlimited: true
+      heterogeneous: false
+      milpSolver: false
+      useCplex: false

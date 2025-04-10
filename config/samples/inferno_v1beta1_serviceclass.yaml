@@ -1,0 +1,17 @@
+apiVersion: inferno.platform.ai/v1beta1
+kind: ServiceClass
+metadata:
+  labels:
+    app.kubernetes.io/name: controller
+    app.kubernetes.io/managed-by: kustomize
+  name: serviceclass-sample
+spec:
+  name: "Premium"
+  "priority": 1
+  "data":
+    - "model": "granite-13b"
+      "slo-itl": 40
+      "slo-ttw": 500
+    - "model": "llama0-70b"
+      "slo-itl": 80
+      "slo-ttw": 500

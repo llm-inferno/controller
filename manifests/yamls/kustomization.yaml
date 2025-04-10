@@ -1,0 +1,6 @@
+resources:
+- accelerator.yaml
+- model.yaml
+- serviceclass.yaml
+- server.yaml
+- optimizer.yaml

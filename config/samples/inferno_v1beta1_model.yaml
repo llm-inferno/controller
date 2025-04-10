@@ -1,0 +1,22 @@
+apiVersion: inferno.platform.ai/v1beta1
+kind: Model
+metadata:
+  labels:
+    app.kubernetes.io/name: controller
+    app.kubernetes.io/managed-by: kustomize
+  name: model-sample
+spec:
+  name: "granite-13b"
+  data:
+    - "acc": "A100"
+      "accCount": 1
+      "alpha": 20.58
+      "beta": 0.41
+      "maxBatchSize": 32
+      "atTokens": 512
+    - "acc": "G2"
+      "accCount": 1
+      "alpha": 17.15
+      "beta": 0.34
+      "maxBatchSize": 38
+      "atTokens": 512

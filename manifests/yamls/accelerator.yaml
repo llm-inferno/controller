@@ -1,0 +1,29 @@
+apiVersion: inferno.platform.ai/v1beta1
+kind: Accelerator
+metadata:
+  name: a100
+spec:
+  name: "A100"
+  type: "A100"
+  multiplicity: 1
+  power:
+    idle: 150
+    full: 400
+    midPower: 320
+    midUtil: 0.6
+  cost: 40.00
+---
+apiVersion: inferno.platform.ai/v1beta1
+kind: Accelerator
+metadata:
+  name: g2
+spec:
+  name: "G2"
+  type: "G2"
+  multiplicity: 1
+  power:
+    idle: 180
+    full: 600
+    midPower: 500
+    midUtil: 0.6
+  cost: 25.00

@@ -1,0 +1,26 @@
+apiVersion: inferno.platform.ai/v1beta1
+kind: ServiceClass
+metadata:
+  name: premium
+spec:
+  name: "Premium"
+  "priority": 1
+  "data":
+    - "model": "granite-13b"
+      "slo-itl": 40
+      "slo-ttw": 500
+    - "model": "llama0-70b"
+      "slo-itl": 80
+      "slo-ttw": 500
+---
+apiVersion: inferno.platform.ai/v1beta1
+kind: ServiceClass
+metadata:
+  name: free
+spec:
+  name: "Free"
+  "priority": 2
+  "data":
+    - "model": "granite-13b"
+      "slo-itl": 80
+      "slo-ttw": 1000

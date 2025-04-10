@@ -1,0 +1,17 @@
+apiVersion: inferno.platform.ai/v1beta1
+kind: Accelerator
+metadata:
+  labels:
+    app.kubernetes.io/name: controller
+    app.kubernetes.io/managed-by: kustomize
+  name: accelerator-sample
+spec:
+  name: "A100"
+  type: "A100"
+  multiplicity: 1
+  power:
+    idle: 150
+    full: 400
+    midPower: 320
+    midUtil: 0.6
+  cost: 40.00
