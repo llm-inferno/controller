@@ -111,7 +111,6 @@ func (r *ModelReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl
 		logf.Log.Error(err, "failed to update model status")
 		return ctrl.Result{}, err
 	}
-
 	return ctrl.Result{}, nil
 }
 

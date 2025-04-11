@@ -7,6 +7,7 @@ resources:
 - bases/inferno.platform.ai_serviceclasses.yaml
 - bases/inferno.platform.ai_servers.yaml
 - bases/inferno.platform.ai_optimizers.yaml
+- bases/inferno.platform.ai_capacities.yaml
 # +kubebuilder:scaffold:crdkustomizeresource
 
 patches:

@@ -22,6 +22,9 @@ resources:
 # default, aiding admins in cluster management. Those roles are
 # not used by the {{ .ProjectName }} itself. You can comment the following lines
 # if you do not want those helpers be installed with your Project.
+- capacity_admin_role.yaml
+- capacity_editor_role.yaml
+- capacity_viewer_role.yaml
 - optimizer_admin_role.yaml
 - optimizer_editor_role.yaml
 - optimizer_viewer_role.yaml

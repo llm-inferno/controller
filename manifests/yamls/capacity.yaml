@@ -1,0 +1,10 @@
+apiVersion: inferno.platform.ai/v1beta1
+kind: Capacity
+metadata:
+  name: capacity
+spec:
+  count:
+    - type: "A100"
+      count: 4
+    - type: "G2"
+      count: 8

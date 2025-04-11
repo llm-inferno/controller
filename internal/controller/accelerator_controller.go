@@ -18,7 +18,6 @@ package controller
 
 import (
 	"context"
-	"net/http"
 
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -70,9 +69,7 @@ func (r *AcceleratorReconciler) Reconcile(ctx context.Context, req ctrl.Request)
 	if !accelerator.ObjectMeta.DeletionTimestamp.IsZero() {
 		// delete the accelerator
 		logf.Log.Info("Accelerator " + acceleratorName + " is being deleted! Deleting from Optimizer ...")
-		endPoint := OptimizerURL + RemoveAccelerator
-		cmd := endPoint + "/" + acceleratorName
-		if _, err := http.Get(cmd); err != nil {
+		if _, err := GetAction(OptimizerURL, RemoveAccelerator, "/"+acceleratorName); err != nil {
 			logf.Log.Error(err, "failed to delete accelerator "+acceleratorName)
 		}
 		return reconcile.Result{}, nil
@@ -93,7 +90,6 @@ func (r *AcceleratorReconciler) Reconcile(ctx context.Context, req ctrl.Request)
 		logf.Log.Error(err, "failed to update accelerator status")
 		return ctrl.Result{}, err
 	}
-
 	return ctrl.Result{}, nil
 }
 

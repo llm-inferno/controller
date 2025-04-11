@@ -240,6 +240,13 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "Optimizer")
 		os.Exit(1)
 	}
+	if err = (&controller.CapacityReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Capacity")
+		os.Exit(1)
+	}
 	// +kubebuilder:scaffold:builder
 
 	if metricsCertWatcher != nil {

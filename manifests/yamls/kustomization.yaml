@@ -3,4 +3,5 @@ resources:
 - model.yaml
 - serviceclass.yaml
 - server.yaml
+- capacity.yaml
 - optimizer.yaml

@@ -14,8 +14,8 @@ spec:
     itlAverage: 25.2
     waitAverage: 726.5
     load:
-      arrivalRate: 10
-      avgLength: 100
+      arrivalRate: 40
+      avgLength: 1024
       arrivalCOV: 1
       serviceCOV: 1
   desiredAlloc:
@@ -41,8 +41,8 @@ spec:
     itlAverage: 25.2
     waitAverage: 726.5
     load:
-      arrivalRate: 20
-      avgLength: 100
+      arrivalRate: 80
+      avgLength: 512
       arrivalCOV: 1
       serviceCOV: 1
   desiredAlloc:

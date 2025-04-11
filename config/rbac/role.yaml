@@ -8,6 +8,7 @@ rules:
   - inferno.platform.ai
   resources:
   - accelerators
+  - capacities
   - models
   - optimizers
   - servers
@@ -24,6 +25,7 @@ rules:
   - inferno.platform.ai
   resources:
   - accelerators/finalizers
+  - capacities/finalizers
   - models/finalizers
   - optimizers/finalizers
   - servers/finalizers
@@ -34,6 +36,7 @@ rules:
   - inferno.platform.ai
   resources:
   - accelerators/status
+  - capacities/status
   - models/status
   - optimizers/status
   - servers/status

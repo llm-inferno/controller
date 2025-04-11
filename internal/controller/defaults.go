@@ -27,6 +27,9 @@ const RemoveServiceClassModelTarget = "/removeServiceClassModelTarget"
 const AddServer = "/addServer"
 const RemoveServer = "/removeServer"
 
+const SetCapacities = "/setCapacities"
+const RemoveCapacity = "/removeCapacity"
+
 const Optimize = "/optimize"
 const ApplyAllocation = "/applyAllocation"
 

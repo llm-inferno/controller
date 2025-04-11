@@ -5,4 +5,5 @@ resources:
 - inferno_v1beta1_serviceclass.yaml
 - inferno_v1beta1_server.yaml
 - inferno_v1beta1_optimizer.yaml
+- inferno_v1beta1_capacity.yaml
 # +kubebuilder:scaffold:manifestskustomizesamples

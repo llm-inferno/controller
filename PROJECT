@@ -53,4 +53,13 @@ resources:
   kind: Optimizer
   path: github.ibm.com/inferno/controller/api/v1beta1
   version: v1beta1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: platform.ai
+  group: inferno
+  kind: Capacity
+  path: github.ibm.com/inferno/controller/api/v1beta1
+  version: v1beta1
 version: "3"
