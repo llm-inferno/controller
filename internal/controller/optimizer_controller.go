@@ -18,6 +18,7 @@ package controller
 
 import (
 	"context"
+	"fmt"
 
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -77,46 +78,62 @@ func (r *OptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 
 	if optimizerSpec.Optimize {
 		solution := infernov1beta1.AllocationSolution{}
-		if err := PostAction(OptimizerURL, Optimize, optimizerSpec.Data.Spec, &solution); err != nil {
-			logf.Log.Error(err, "failed to optimize, retrying ...")
-			return ctrl.Result{RequeueAfter: RetrialDuration}, nil
-		} else {
-			logf.Log.Info("Optimizer " + optimizerName + " done")
 
-			serverList := &infernov1beta1.ServerList{}
-			opts := []client.ListOption{
-				client.InNamespace(req.NamespacedName.Namespace),
+		if StateLess {
+			if systemData, err := r.readSystemData(ctx, req); err != nil {
+				logf.Log.Error(err, "failed to read system data, retrying ...")
+				return ctrl.Result{RequeueAfter: RetrialDuration}, nil
+			} else if err := PostAction(OptimizerURL, OptimizeOne, systemData, &solution); err != nil {
+				logf.Log.Error(err, "failed to optimize")
+				return ctrl.Result{}, nil
 			}
+		} else {
+			if err := PostAction(OptimizerURL, Optimize, optimizerSpec.Data.Spec, &solution); err != nil {
+				logf.Log.Error(err, "failed to optimize")
+				return ctrl.Result{}, nil
+			}
+		}
 
-			if err := r.List(ctx, serverList, opts...); err == nil {
-				for _, server := range serverList.Items {
-					serverName := server.Spec.Name
-					if allocation, exists := solution.Spec[serverName]; exists {
-						server.Spec.DesiredAlloc = allocation
-						logf.Log.Info("Updating desired allocation for server: " + serverName)
-						if err := r.Update(ctx, &server); err != nil {
-							logf.Log.Error(err, "failed to update server "+serverName)
-						}
+		logf.Log.Info("Optimizer " + optimizerName + " done")
+		if len(solution.Spec) == 0 {
+			err := fmt.Errorf("no feasible solution found")
+			logf.Log.Error(err, "failed to optimize")
+			return ctrl.Result{}, nil
+		}
+
+		serverList := &infernov1beta1.ServerList{}
+		opts := []client.ListOption{
+			client.InNamespace(req.NamespacedName.Namespace),
+		}
+
+		if err := r.List(ctx, serverList, opts...); err == nil {
+			for _, server := range serverList.Items {
+				serverName := server.Spec.Name
+				if allocation, exists := solution.Spec[serverName]; exists {
+					server.Spec.DesiredAlloc = allocation
+					logf.Log.Info("Updating desired allocation for server: " + serverName)
+					if err := r.Update(ctx, &server); err != nil {
+						logf.Log.Error(err, "failed to update server "+serverName)
 					}
 				}
-			} else {
-				logf.Log.Error(err, "failed to get server list")
 			}
+		} else {
+			logf.Log.Error(err, "failed to get server list")
+		}
 
-			// Update status
-			logf.Log.Info("Updating status of optimizer " + optimizerName)
+		// Update status
+		logf.Log.Info("Updating status of optimizer " + optimizerName)
 
-			optimizer.Spec.Optimize = false
-			if err := r.Update(ctx, optimizer); err != nil {
-				logf.Log.Error(err, "failed to update optimizer spec")
-				return ctrl.Result{}, err
-			}
+		optimizer.Spec.Optimize = false
+		if err := r.Update(ctx, optimizer); err != nil {
+			logf.Log.Error(err, "failed to update optimizer spec")
+			return ctrl.Result{}, err
+		}
 
-			optimizer.Status.Done = true
-			if err := r.Status().Update(ctx, optimizer); err != nil {
-				logf.Log.Error(err, "failed to update optimizer status")
-				return ctrl.Result{}, err
-			}
+		optimizer.Status.Done = true
+		if err := r.Status().Update(ctx, optimizer); err != nil {
+			logf.Log.Error(err, "failed to update optimizer status")
+			return ctrl.Result{}, err
 		}
 	}
 	return ctrl.Result{}, nil

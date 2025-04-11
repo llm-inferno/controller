@@ -8,6 +8,7 @@ const RestPortEnvName = "INFERNO_PORT"
 
 // REST server API
 var OptimizerURL string
+var StateLess bool
 
 const AddAccelerator = "/addAccelerator"
 const RemoveAccelerator = "/removeAccelerator"
@@ -31,9 +32,11 @@ const SetCapacities = "/setCapacities"
 const RemoveCapacity = "/removeCapacity"
 
 const Optimize = "/optimize"
+const OptimizeOne = "/optimizeOne"
 const ApplyAllocation = "/applyAllocation"
 
 // Others
-var RetrialDuration = 30 * time.Second * 30
+var RetrialDuration = 30 * time.Second
 
-const FinalizerName = "inferno.neurops.ai/finalizer"
+const StateLessEnvVariable = "INFERNO_STATELESS"
+const FinalizerName = "inferno.platform.ai/finalizer"

@@ -9,11 +9,15 @@ import (
 	"net/http"
 	"os"
 
+	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 	"sigs.k8s.io/controller-runtime/pkg/event"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/predicate"
+
+	apiv1beta1 "github.ibm.com/inferno/api/api/v1beta1"
+	infernov1beta1 "github.ibm.com/inferno/controller/api/v1beta1"
 )
 
 // get URL of a REST server
@@ -110,6 +114,131 @@ func PostAction(url string, verb string, specIn any, specOut any) (err error) {
 		}
 	}
 	return err
+}
+
+// read all system data from specifications of resources
+func (r *OptimizerReconciler) readSystemData(ctx context.Context,
+	req ctrl.Request) (systemData *apiv1beta1.SystemData, err error) {
+
+	systemSpec := apiv1beta1.SystemSpec{
+		Accelerators: apiv1beta1.AcceleratorData{
+			Spec: make([]apiv1beta1.AcceleratorSpec, 0),
+		},
+		Models: apiv1beta1.ModelData{
+			PerfData: make([]apiv1beta1.ModelAcceleratorPerfData, 0),
+		},
+		ServiceClasses: apiv1beta1.ServiceClassData{
+			Spec: make([]apiv1beta1.ServiceClassSpec, 0),
+		},
+		Servers: apiv1beta1.ServerData{
+			Spec: make([]apiv1beta1.ServerSpec, 0),
+		},
+		Optimizer: apiv1beta1.OptimizerData{
+			Spec: apiv1beta1.OptimizerSpec{},
+		},
+		Capacity: apiv1beta1.CapacityData{
+			Count: make([]apiv1beta1.AcceleratorCount, 0),
+		},
+	}
+
+	opts := []client.ListOption{
+		client.InNamespace(req.NamespacedName.Namespace),
+	}
+
+	// get optimizer data
+	optimizerList := &infernov1beta1.OptimizerList{}
+	if err = r.List(ctx, optimizerList, opts...); err != nil {
+		logf.Log.Error(err, "failed to get optimizer list")
+		return nil, err
+	}
+	if len(optimizerList.Items) == 0 {
+		err = fmt.Errorf("no optimizer specs found")
+		logf.Log.Error(err, "failed to get optimizer")
+		return nil, err
+	}
+	optimizer := optimizerList.Items[0] // only one is needed
+	systemSpec.Optimizer.Spec = optimizer.Spec.Data.Spec
+
+	// get accelerator data
+	acceleratorList := &infernov1beta1.AcceleratorList{}
+	if err = r.List(ctx, acceleratorList, opts...); err != nil {
+		logf.Log.Error(err, "failed to get accelerator list")
+		return nil, err
+	}
+	for _, accelerator := range acceleratorList.Items {
+		systemSpec.Accelerators.Spec = append(systemSpec.Accelerators.Spec,
+			apiv1beta1.AcceleratorSpec(accelerator.Spec))
+	}
+
+	// get model data
+	modelList := &infernov1beta1.ModelList{}
+	if err = r.List(ctx, modelList, opts...); err != nil {
+		logf.Log.Error(err, "failed to get model list")
+		return nil, err
+	}
+	for _, model := range modelList.Items {
+		for _, data := range model.Spec.Data {
+			perfData := &apiv1beta1.ModelAcceleratorPerfData{
+				Name:         model.Spec.Name,
+				Acc:          data.Acc,
+				AccCount:     data.AccCount,
+				Alpha:        data.Alpha,
+				Beta:         data.Beta,
+				MaxBatchSize: data.MaxBatchSize,
+				AtTokens:     data.AtTokens,
+			}
+			systemSpec.Models.PerfData = append(systemSpec.Models.PerfData,
+				*perfData)
+		}
+	}
+
+	// get service class data
+	svcList := &infernov1beta1.ServiceClassList{}
+	if err = r.List(ctx, svcList, opts...); err != nil {
+		logf.Log.Error(err, "failed to get service class list")
+		return nil, err
+	}
+	for _, svc := range svcList.Items {
+		for _, data := range svc.Spec.Data {
+			svcSpec := &apiv1beta1.ServiceClassSpec{
+				Name:     svc.Spec.Name,
+				Priority: svc.Spec.Priority,
+				Model:    data.Model,
+				SLO_ITL:  data.SLO_ITL,
+				SLO_TTW:  data.SLO_TTW,
+				SLO_TPS:  data.SLO_TPS,
+			}
+			systemSpec.ServiceClasses.Spec = append(systemSpec.ServiceClasses.Spec,
+				*svcSpec)
+		}
+	}
+
+	// get server data
+	serverList := &infernov1beta1.ServerList{}
+	if err = r.List(ctx, serverList, opts...); err != nil {
+		logf.Log.Error(err, "failed to get server list")
+		return nil, err
+	}
+	for _, server := range serverList.Items {
+		systemSpec.Servers.Spec = append(systemSpec.Servers.Spec,
+			apiv1beta1.ServerSpec(server.Spec))
+	}
+
+	// get capacity data
+	capacityList := &infernov1beta1.CapacityList{}
+	if err := r.List(ctx, capacityList, opts...); err != nil {
+		logf.Log.Error(err, "failed to get capacity list")
+		return nil, err
+	}
+	for _, capacity := range capacityList.Items {
+		systemSpec.Capacity.Count = append(systemSpec.Capacity.Count,
+			capacity.Spec.Count...)
+	}
+
+	systemData = &apiv1beta1.SystemData{
+		Spec: systemSpec,
+	}
+	return systemData, nil
 }
 
 // remove a string item from a slice of strings

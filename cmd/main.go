@@ -21,6 +21,7 @@ import (
 	"flag"
 	"os"
 	"path/filepath"
+	"strconv"
 
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	// to ensure that exec-entrypoint and run can make use of them.
@@ -205,34 +206,12 @@ func main() {
 	// get URL to optimizer REST API server
 	controller.OptimizerURL = controller.GetURL(controller.RestHostEnvName, controller.RestPortEnvName)
 
-	if err = (&controller.AcceleratorReconciler{
-		Client: mgr.GetClient(),
-		Scheme: mgr.GetScheme(),
-	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "Accelerator")
-		os.Exit(1)
+	// set state-less mode
+	controller.StateLess = true
+	if str := os.Getenv(controller.StateLessEnvVariable); str != "" {
+		controller.StateLess, _ = strconv.ParseBool(str)
 	}
-	if err = (&controller.ModelReconciler{
-		Client: mgr.GetClient(),
-		Scheme: mgr.GetScheme(),
-	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "Model")
-		os.Exit(1)
-	}
-	if err = (&controller.ServiceClassReconciler{
-		Client: mgr.GetClient(),
-		Scheme: mgr.GetScheme(),
-	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "ServiceClass")
-		os.Exit(1)
-	}
-	if err = (&controller.ServerReconciler{
-		Client: mgr.GetClient(),
-		Scheme: mgr.GetScheme(),
-	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "Server")
-		os.Exit(1)
-	}
+
 	if err = (&controller.OptimizerReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
@@ -240,12 +219,45 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "Optimizer")
 		os.Exit(1)
 	}
-	if err = (&controller.CapacityReconciler{
-		Client: mgr.GetClient(),
-		Scheme: mgr.GetScheme(),
-	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "Capacity")
-		os.Exit(1)
+
+	if !controller.StateLess {
+
+		if err = (&controller.AcceleratorReconciler{
+			Client: mgr.GetClient(),
+			Scheme: mgr.GetScheme(),
+		}).SetupWithManager(mgr); err != nil {
+			setupLog.Error(err, "unable to create controller", "controller", "Accelerator")
+			os.Exit(1)
+		}
+		if err = (&controller.ModelReconciler{
+			Client: mgr.GetClient(),
+			Scheme: mgr.GetScheme(),
+		}).SetupWithManager(mgr); err != nil {
+			setupLog.Error(err, "unable to create controller", "controller", "Model")
+			os.Exit(1)
+		}
+		if err = (&controller.ServiceClassReconciler{
+			Client: mgr.GetClient(),
+			Scheme: mgr.GetScheme(),
+		}).SetupWithManager(mgr); err != nil {
+			setupLog.Error(err, "unable to create controller", "controller", "ServiceClass")
+			os.Exit(1)
+		}
+		if err = (&controller.ServerReconciler{
+			Client: mgr.GetClient(),
+			Scheme: mgr.GetScheme(),
+		}).SetupWithManager(mgr); err != nil {
+			setupLog.Error(err, "unable to create controller", "controller", "Server")
+			os.Exit(1)
+		}
+		if err = (&controller.CapacityReconciler{
+			Client: mgr.GetClient(),
+			Scheme: mgr.GetScheme(),
+		}).SetupWithManager(mgr); err != nil {
+			setupLog.Error(err, "unable to create controller", "controller", "Capacity")
+			os.Exit(1)
+		}
+
 	}
 	// +kubebuilder:scaffold:builder
 
