@@ -158,6 +158,8 @@ The controller works in one of two modes: Statefull and Stateless (default), thr
 
 **Build and push your image to the location specified by `IMG`:**
 
+Since some repositories are on private github, a vendor directory needs to be created using `go mod vendor`.
+
 ```sh
 make docker-build docker-push IMG=<some-registry>/controller:tag
 ```
@@ -174,6 +176,16 @@ make install
 
 **Deploy the Manager to the cluster with the image specified by `IMG`:**
 
+> **NOTE**: The `make deploy` command creates a yaml file which is applied in the cluster. In order for the Controller to use the Optimizer, some environment variables need to be set. This is done by adding the following to the Deployment specifications in the resulting yaml file. It is assumed that the Optimizer is already deployed in the cluster as a REST API server.
+
+```yaml
+env:
+  - name: INFERNO_HOST
+    value: "inferno-optimizer.inferno.svc.cluster.local"
+  - name: INFERNO_PORT
+    value: "3302"
+```
+
 ```sh
 make deploy IMG=<some-registry>/controller:tag
 ```
@@ -182,13 +194,11 @@ make deploy IMG=<some-registry>/controller:tag
 privileges or be logged in as admin.
 
 **Create instances of your solution**
-You can apply the samples (examples) from the config/sample:
+You can apply the samples (examples) from the manifests/yamls:
 
 ```sh
-kubectl apply -k config/samples/
+kubectl apply -k manifests/yamls/
 ```
-
->**NOTE**: Ensure that the samples has default values to test it out.
 
 ### To Uninstall
 
