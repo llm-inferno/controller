@@ -183,7 +183,7 @@ env:
   - name: INFERNO_HOST
     value: "inferno-optimizer.inferno.svc.cluster.local"
   - name: INFERNO_PORT
-    value: "3302"
+    value: "80"
 ```
 
 ```sh
@@ -192,6 +192,12 @@ make deploy IMG=<some-registry>/controller:tag
 
 > **NOTE**: If you encounter RBAC errors, you may need to grant yourself cluster-admin
 privileges or be logged in as admin.
+
+For testing, a deploy.yaml file is already created.
+
+```sh
+kubectl apply -f manifests/yamls/deploy.yaml
+```
 
 **Create instances of your solution**
 You can apply the samples (examples) from the manifests/yamls:
@@ -205,7 +211,7 @@ kubectl apply -k manifests/yamls/
 **Delete the instances (CRs) from the cluster:**
 
 ```sh
-kubectl delete -k config/samples/
+kubectl delete -k manifests/yamls/
 ```
 
 **Delete the APIs(CRDs) from the cluster:**
@@ -217,7 +223,7 @@ make uninstall
 **UnDeploy the controller from the cluster:**
 
 ```sh
-make undeploy
+kubectl delete -f manifests/yamls/deploy.yaml
 ```
 
 ## Project Distribution

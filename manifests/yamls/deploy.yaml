@@ -22,88 +22,89 @@ spec:
     singular: accelerator
   scope: Namespaced
   versions:
-  - name: v1beta1
-    schema:
-      openAPIV3Schema:
-        description: Accelerator is the Schema for the accelerators API.
-        properties:
-          apiVersion:
-            description: |-
-              APIVersion defines the versioned schema of this representation of an object.
-              Servers should convert recognized schemas to the latest internal value, and
-              may reject unrecognized values.
-              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-            type: string
-          kind:
-            description: |-
-              Kind is a string value representing the REST resource this object represents.
-              Servers may infer this from the endpoint the client submits requests to.
-              Cannot be updated.
-              In CamelCase.
-              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-            type: string
-          metadata:
-            type: object
-          spec:
-            description: AcceleratorSpec defines the desired state of Accelerator.
-            properties:
-              cost:
-                type: number
-              memBW:
-                type: integer
-              memSize:
-                type: integer
-              multiplicity:
-                default: 1
-                minimum: 1
-                type: integer
-              name:
-                minLength: 1
-                type: string
-              power:
-                description: Specifications for Accelerator power consumption data
-                  (Watts)
-                properties:
-                  full:
-                    minimum: 0
-                    type: integer
-                  idle:
-                    minimum: 0
-                    type: integer
-                  midPower:
-                    minimum: 0
-                    type: integer
-                  midUtil:
-                    maximum: 1
-                    minimum: 0
-                    type: number
-                required:
-                - full
-                - idle
-                - midPower
-                - midUtil
-                type: object
-              type:
-                minLength: 1
-                type: string
-            required:
-            - cost
-            - name
-            - type
-            type: object
-          status:
-            description: AcceleratorStatus defines the observed state of Accelerator.
-            properties:
-              active:
-                type: boolean
-            required:
-            - active
-            type: object
-        type: object
-    served: true
-    storage: true
-    subresources:
-      status: {}
+    - name: v1beta1
+      schema:
+        openAPIV3Schema:
+          description: Accelerator is the Schema for the accelerators API.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: AcceleratorSpec defines the desired state of Accelerator.
+              properties:
+                cost:
+                  type: number
+                memBW:
+                  type: integer
+                memSize:
+                  type: integer
+                multiplicity:
+                  default: 1
+                  minimum: 1
+                  type: integer
+                name:
+                  minLength: 1
+                  type: string
+                power:
+                  description:
+                    Specifications for Accelerator power consumption data
+                    (Watts)
+                  properties:
+                    full:
+                      minimum: 0
+                      type: integer
+                    idle:
+                      minimum: 0
+                      type: integer
+                    midPower:
+                      minimum: 0
+                      type: integer
+                    midUtil:
+                      maximum: 1
+                      minimum: 0
+                      type: number
+                  required:
+                    - full
+                    - idle
+                    - midPower
+                    - midUtil
+                  type: object
+                type:
+                  minLength: 1
+                  type: string
+              required:
+                - cost
+                - name
+                - type
+              type: object
+            status:
+              description: AcceleratorStatus defines the observed state of Accelerator.
+              properties:
+                active:
+                  type: boolean
+              required:
+                - active
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -120,62 +121,62 @@ spec:
     singular: capacity
   scope: Namespaced
   versions:
-  - name: v1beta1
-    schema:
-      openAPIV3Schema:
-        description: Capacity is the Schema for the capacities API.
-        properties:
-          apiVersion:
-            description: |-
-              APIVersion defines the versioned schema of this representation of an object.
-              Servers should convert recognized schemas to the latest internal value, and
-              may reject unrecognized values.
-              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-            type: string
-          kind:
-            description: |-
-              Kind is a string value representing the REST resource this object represents.
-              Servers may infer this from the endpoint the client submits requests to.
-              Cannot be updated.
-              In CamelCase.
-              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-            type: string
-          metadata:
-            type: object
-          spec:
-            description: CapacitySpec defines the desired state of Capacity.
-            properties:
-              count:
-                items:
-                  description: Count of accelerator types in the system
-                  properties:
-                    count:
-                      default: 0
-                      minimum: 0
-                      type: integer
-                    type:
-                      minLength: 1
-                      type: string
-                  required:
-                  - type
-                  type: object
-                type: array
-            required:
-            - count
-            type: object
-          status:
-            description: CapacityStatus defines the observed state of Capacity.
-            properties:
-              active:
-                type: boolean
-            required:
-            - active
-            type: object
-        type: object
-    served: true
-    storage: true
-    subresources:
-      status: {}
+    - name: v1beta1
+      schema:
+        openAPIV3Schema:
+          description: Capacity is the Schema for the capacities API.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: CapacitySpec defines the desired state of Capacity.
+              properties:
+                count:
+                  items:
+                    description: Count of accelerator types in the system
+                    properties:
+                      count:
+                        default: 0
+                        minimum: 0
+                        type: integer
+                      type:
+                        minLength: 1
+                        type: string
+                    required:
+                      - type
+                    type: object
+                  type: array
+              required:
+                - count
+              type: object
+            status:
+              description: CapacityStatus defines the observed state of Capacity.
+              properties:
+                active:
+                  type: boolean
+              required:
+                - active
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -192,75 +193,75 @@ spec:
     singular: model
   scope: Namespaced
   versions:
-  - name: v1beta1
-    schema:
-      openAPIV3Schema:
-        description: Model is the Schema for the models API.
-        properties:
-          apiVersion:
-            description: |-
-              APIVersion defines the versioned schema of this representation of an object.
-              Servers should convert recognized schemas to the latest internal value, and
-              may reject unrecognized values.
-              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-            type: string
-          kind:
-            description: |-
-              Kind is a string value representing the REST resource this object represents.
-              Servers may infer this from the endpoint the client submits requests to.
-              Cannot be updated.
-              In CamelCase.
-              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-            type: string
-          metadata:
-            type: object
-          spec:
-            description: ModelSpec defines the desired state of Model.
-            properties:
-              data:
-                items:
-                  description: Specifications for accelerator data
-                  properties:
-                    acc:
-                      type: string
-                    accCount:
-                      type: integer
-                    alpha:
-                      type: number
-                    atTokens:
-                      type: integer
-                    beta:
-                      type: number
-                    maxBatchSize:
-                      type: integer
-                  required:
-                  - acc
-                  - accCount
-                  - alpha
-                  - atTokens
-                  - beta
-                  - maxBatchSize
-                  type: object
-                type: array
-              name:
-                minLength: 1
-                type: string
-            required:
-            - name
-            type: object
-          status:
-            description: ModelStatus defines the observed state of Model.
-            properties:
-              active:
-                type: boolean
-            required:
-            - active
-            type: object
-        type: object
-    served: true
-    storage: true
-    subresources:
-      status: {}
+    - name: v1beta1
+      schema:
+        openAPIV3Schema:
+          description: Model is the Schema for the models API.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: ModelSpec defines the desired state of Model.
+              properties:
+                data:
+                  items:
+                    description: Specifications for accelerator data
+                    properties:
+                      acc:
+                        type: string
+                      accCount:
+                        type: integer
+                      alpha:
+                        type: number
+                      atTokens:
+                        type: integer
+                      beta:
+                        type: number
+                      maxBatchSize:
+                        type: integer
+                    required:
+                      - acc
+                      - accCount
+                      - alpha
+                      - atTokens
+                      - beta
+                      - maxBatchSize
+                    type: object
+                  type: array
+                name:
+                  minLength: 1
+                  type: string
+              required:
+                - name
+              type: object
+            status:
+              description: ModelStatus defines the observed state of Model.
+              properties:
+                active:
+                  type: boolean
+              required:
+                - active
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -277,73 +278,73 @@ spec:
     singular: optimizer
   scope: Namespaced
   versions:
-  - name: v1beta1
-    schema:
-      openAPIV3Schema:
-        description: Optimizer is the Schema for the optimizers API.
-        properties:
-          apiVersion:
-            description: |-
-              APIVersion defines the versioned schema of this representation of an object.
-              Servers should convert recognized schemas to the latest internal value, and
-              may reject unrecognized values.
-              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-            type: string
-          kind:
-            description: |-
-              Kind is a string value representing the REST resource this object represents.
-              Servers may infer this from the endpoint the client submits requests to.
-              Cannot be updated.
-              In CamelCase.
-              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-            type: string
-          metadata:
-            type: object
-          spec:
-            description: OptimizerSpec defines the desired state of Optimizer.
-            properties:
-              data:
-                description: Data related to Optimizer
-                properties:
-                  optimizer:
-                    description: Specifications for optimizer data
-                    properties:
-                      heterogeneous:
-                        type: boolean
-                      milpSolver:
-                        type: boolean
-                      unlimited:
-                        type: boolean
-                      useCplex:
-                        type: boolean
-                    required:
-                    - heterogeneous
-                    - milpSolver
-                    - unlimited
-                    - useCplex
-                    type: object
-                required:
-                - optimizer
-                type: object
-              optimize:
-                type: boolean
-            required:
-            - data
-            - optimize
-            type: object
-          status:
-            description: OptimizerStatus defines the observed state of Optimizer.
-            properties:
-              done:
-                type: boolean
-            required:
-            - done
-            type: object
-        type: object
-    served: true
-    storage: true
-    subresources:
-      status: {}
+    - name: v1beta1
+      schema:
+        openAPIV3Schema:
+          description: Optimizer is the Schema for the optimizers API.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: OptimizerSpec defines the desired state of Optimizer.
+              properties:
+                data:
+                  description: Data related to Optimizer
+                  properties:
+                    optimizer:
+                      description: Specifications for optimizer data
+                      properties:
+                        heterogeneous:
+                          type: boolean
+                        milpSolver:
+                          type: boolean
+                        unlimited:
+                          type: boolean
+                        useCplex:
+                          type: boolean
+                      required:
+                        - heterogeneous
+                        - milpSolver
+                        - unlimited
+                        - useCplex
+                      type: object
+                  required:
+                    - optimizer
+                  type: object
+                optimize:
+                  type: boolean
+              required:
+                - data
+                - optimize
+              type: object
+            status:
+              description: OptimizerStatus defines the observed state of Optimizer.
+              properties:
+                done:
+                  type: boolean
+              required:
+                - done
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -360,126 +361,126 @@ spec:
     singular: server
   scope: Namespaced
   versions:
-  - name: v1beta1
-    schema:
-      openAPIV3Schema:
-        description: Server is the Schema for the servers API.
-        properties:
-          apiVersion:
-            description: |-
-              APIVersion defines the versioned schema of this representation of an object.
-              Servers should convert recognized schemas to the latest internal value, and
-              may reject unrecognized values.
-              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-            type: string
-          kind:
-            description: |-
-              Kind is a string value representing the REST resource this object represents.
-              Servers may infer this from the endpoint the client submits requests to.
-              Cannot be updated.
-              In CamelCase.
-              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-            type: string
-          metadata:
-            type: object
-          spec:
-            description: ServerSpec defines the desired state of Server.
-            properties:
-              class:
-                minLength: 1
-                type: string
-              currentAlloc:
-                description: Data about a server allocation
-                properties:
-                  accelerator:
-                    type: string
-                  cost:
-                    type: number
-                  itlAverage:
-                    type: number
-                  load:
-                    description: Specifications of server load statistics
-                    properties:
-                      arrivalCOV:
-                        type: number
-                      arrivalRate:
-                        type: number
-                      avgLength:
-                        type: integer
-                      serviceCOV:
-                        type: number
-                    required:
-                    - arrivalRate
-                    - avgLength
-                    type: object
-                  maxBatch:
-                    type: integer
-                  numReplicas:
-                    type: integer
-                  waitAverage:
-                    type: number
-                required:
-                - accelerator
-                - numReplicas
-                type: object
-              desiredAlloc:
-                description: Data about a server allocation
-                properties:
-                  accelerator:
-                    type: string
-                  cost:
-                    type: number
-                  itlAverage:
-                    type: number
-                  load:
-                    description: Specifications of server load statistics
-                    properties:
-                      arrivalCOV:
-                        type: number
-                      arrivalRate:
-                        type: number
-                      avgLength:
-                        type: integer
-                      serviceCOV:
-                        type: number
-                    required:
-                    - arrivalRate
-                    - avgLength
-                    type: object
-                  maxBatch:
-                    type: integer
-                  numReplicas:
-                    type: integer
-                  waitAverage:
-                    type: number
-                required:
-                - accelerator
-                - numReplicas
-                type: object
-              model:
-                minLength: 1
-                type: string
-              name:
-                minLength: 1
-                type: string
-            required:
-            - class
-            - model
-            - name
-            type: object
-          status:
-            description: ServerStatus defines the observed state of Server.
-            properties:
-              active:
-                type: boolean
-            required:
-            - active
-            type: object
-        type: object
-    served: true
-    storage: true
-    subresources:
-      status: {}
+    - name: v1beta1
+      schema:
+        openAPIV3Schema:
+          description: Server is the Schema for the servers API.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: ServerSpec defines the desired state of Server.
+              properties:
+                class:
+                  minLength: 1
+                  type: string
+                currentAlloc:
+                  description: Data about a server allocation
+                  properties:
+                    accelerator:
+                      type: string
+                    cost:
+                      type: number
+                    itlAverage:
+                      type: number
+                    load:
+                      description: Specifications of server load statistics
+                      properties:
+                        arrivalCOV:
+                          type: number
+                        arrivalRate:
+                          type: number
+                        avgLength:
+                          type: integer
+                        serviceCOV:
+                          type: number
+                      required:
+                        - arrivalRate
+                        - avgLength
+                      type: object
+                    maxBatch:
+                      type: integer
+                    numReplicas:
+                      type: integer
+                    waitAverage:
+                      type: number
+                  required:
+                    - accelerator
+                    - numReplicas
+                  type: object
+                desiredAlloc:
+                  description: Data about a server allocation
+                  properties:
+                    accelerator:
+                      type: string
+                    cost:
+                      type: number
+                    itlAverage:
+                      type: number
+                    load:
+                      description: Specifications of server load statistics
+                      properties:
+                        arrivalCOV:
+                          type: number
+                        arrivalRate:
+                          type: number
+                        avgLength:
+                          type: integer
+                        serviceCOV:
+                          type: number
+                      required:
+                        - arrivalRate
+                        - avgLength
+                      type: object
+                    maxBatch:
+                      type: integer
+                    numReplicas:
+                      type: integer
+                    waitAverage:
+                      type: number
+                  required:
+                    - accelerator
+                    - numReplicas
+                  type: object
+                model:
+                  minLength: 1
+                  type: string
+                name:
+                  minLength: 1
+                  type: string
+              required:
+                - class
+                - model
+                - name
+              type: object
+            status:
+              description: ServerStatus defines the observed state of Server.
+              properties:
+                active:
+                  type: boolean
+              required:
+                - active
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -496,71 +497,71 @@ spec:
     singular: serviceclass
   scope: Namespaced
   versions:
-  - name: v1beta1
-    schema:
-      openAPIV3Schema:
-        description: ServiceClass is the Schema for the serviceclasses API.
-        properties:
-          apiVersion:
-            description: |-
-              APIVersion defines the versioned schema of this representation of an object.
-              Servers should convert recognized schemas to the latest internal value, and
-              may reject unrecognized values.
-              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-            type: string
-          kind:
-            description: |-
-              Kind is a string value representing the REST resource this object represents.
-              Servers may infer this from the endpoint the client submits requests to.
-              Cannot be updated.
-              In CamelCase.
-              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-            type: string
-          metadata:
-            type: object
-          spec:
-            description: ServiceClassSpec defines the desired state of ServiceClass.
-            properties:
-              data:
-                items:
-                  description: Specifications of SLO data for a model
-                  properties:
-                    model:
-                      minLength: 1
-                      type: string
-                    slo-itl:
-                      type: number
-                    slo-tps:
-                      type: number
-                    slo-ttw:
-                      type: number
-                  required:
-                  - model
-                  type: object
-                type: array
-              name:
-                minLength: 1
-                type: string
-              priority:
-                default: 0
-                minimum: 0
-                type: integer
-            required:
-            - name
-            type: object
-          status:
-            description: ServiceClassStatus defines the observed state of ServiceClass.
-            properties:
-              active:
-                type: boolean
-            required:
-            - active
-            type: object
-        type: object
-    served: true
-    storage: true
-    subresources:
-      status: {}
+    - name: v1beta1
+      schema:
+        openAPIV3Schema:
+          description: ServiceClass is the Schema for the serviceclasses API.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: ServiceClassSpec defines the desired state of ServiceClass.
+              properties:
+                data:
+                  items:
+                    description: Specifications of SLO data for a model
+                    properties:
+                      model:
+                        minLength: 1
+                        type: string
+                      slo-itl:
+                        type: number
+                      slo-tps:
+                        type: number
+                      slo-ttw:
+                        type: number
+                    required:
+                      - model
+                    type: object
+                  type: array
+                name:
+                  minLength: 1
+                  type: string
+                priority:
+                  default: 0
+                  minimum: 0
+                  type: integer
+              required:
+                - name
+              type: object
+            status:
+              description: ServiceClassStatus defines the observed state of ServiceClass.
+              properties:
+                active:
+                  type: boolean
+              required:
+                - active
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -580,37 +581,37 @@ metadata:
   name: controller-leader-election-role
   namespace: controller-system
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
-- apiGroups:
-  - coordination.k8s.io
-  resources:
-  - leases
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs:
-  - create
-  - patch
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -620,18 +621,18 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-accelerator-admin-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - accelerators
-  verbs:
-  - '*'
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - accelerators/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - accelerators
+    verbs:
+      - "*"
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - accelerators/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -641,24 +642,24 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-accelerator-editor-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - accelerators
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - accelerators/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - accelerators
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - accelerators/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -668,20 +669,20 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-accelerator-viewer-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - accelerators
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - accelerators/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - accelerators
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - accelerators/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -691,18 +692,18 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-capacity-admin-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - capacities
-  verbs:
-  - '*'
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - capacities/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - capacities
+    verbs:
+      - "*"
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - capacities/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -712,24 +713,24 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-capacity-editor-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - capacities
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - capacities/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - capacities
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - capacities/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -739,95 +740,95 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-capacity-viewer-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - capacities
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - capacities/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - capacities
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - capacities/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: controller-manager-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - accelerators
-  - capacities
-  - models
-  - optimizers
-  - servers
-  - serviceclasses
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - accelerators/finalizers
-  - capacities/finalizers
-  - models/finalizers
-  - optimizers/finalizers
-  - servers/finalizers
-  - serviceclasses/finalizers
-  verbs:
-  - update
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - accelerators/status
-  - capacities/status
-  - models/status
-  - optimizers/status
-  - servers/status
-  - serviceclasses/status
-  verbs:
-  - get
-  - patch
-  - update
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - accelerators
+      - capacities
+      - models
+      - optimizers
+      - servers
+      - serviceclasses
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - accelerators/finalizers
+      - capacities/finalizers
+      - models/finalizers
+      - optimizers/finalizers
+      - servers/finalizers
+      - serviceclasses/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - accelerators/status
+      - capacities/status
+      - models/status
+      - optimizers/status
+      - servers/status
+      - serviceclasses/status
+    verbs:
+      - get
+      - patch
+      - update
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: controller-metrics-auth-role
 rules:
-- apiGroups:
-  - authentication.k8s.io
-  resources:
-  - tokenreviews
-  verbs:
-  - create
-- apiGroups:
-  - authorization.k8s.io
-  resources:
-  - subjectaccessreviews
-  verbs:
-  - create
+  - apiGroups:
+      - authentication.k8s.io
+    resources:
+      - tokenreviews
+    verbs:
+      - create
+  - apiGroups:
+      - authorization.k8s.io
+    resources:
+      - subjectaccessreviews
+    verbs:
+      - create
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: controller-metrics-reader
 rules:
-- nonResourceURLs:
-  - /metrics
-  verbs:
-  - get
+  - nonResourceURLs:
+      - /metrics
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -837,18 +838,18 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-model-admin-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - models
-  verbs:
-  - '*'
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - models/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - models
+    verbs:
+      - "*"
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - models/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -858,24 +859,24 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-model-editor-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - models
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - models/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - models
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - models/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -885,20 +886,20 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-model-viewer-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - models
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - models/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - models
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - models/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -908,18 +909,18 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-optimizer-admin-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - optimizers
-  verbs:
-  - '*'
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - optimizers/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - optimizers
+    verbs:
+      - "*"
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - optimizers/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -929,24 +930,24 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-optimizer-editor-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - optimizers
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - optimizers/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - optimizers
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - optimizers/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -956,20 +957,20 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-optimizer-viewer-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - optimizers
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - optimizers/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - optimizers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - optimizers/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -979,18 +980,18 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-server-admin-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - servers
-  verbs:
-  - '*'
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - servers/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - servers
+    verbs:
+      - "*"
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - servers/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -1000,24 +1001,24 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-server-editor-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - servers
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - servers/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - servers
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - servers/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -1027,20 +1028,20 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-server-viewer-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - servers
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - servers/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - servers
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - servers/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -1050,18 +1051,18 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-serviceclass-admin-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - serviceclasses
-  verbs:
-  - '*'
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - serviceclasses/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - serviceclasses
+    verbs:
+      - "*"
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - serviceclasses/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -1071,24 +1072,24 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-serviceclass-editor-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - serviceclasses
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - serviceclasses/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - serviceclasses
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - serviceclasses/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -1098,20 +1099,20 @@ metadata:
     app.kubernetes.io/name: controller
   name: controller-serviceclass-viewer-role
 rules:
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - serviceclasses
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - inferno.platform.ai
-  resources:
-  - serviceclasses/status
-  verbs:
-  - get
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - serviceclasses
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - inferno.platform.ai
+    resources:
+      - serviceclasses/status
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -1126,9 +1127,9 @@ roleRef:
   kind: Role
   name: controller-leader-election-role
 subjects:
-- kind: ServiceAccount
-  name: controller-controller-manager
-  namespace: controller-system
+  - kind: ServiceAccount
+    name: controller-controller-manager
+    namespace: controller-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -1142,9 +1143,9 @@ roleRef:
   kind: ClusterRole
   name: controller-manager-role
 subjects:
-- kind: ServiceAccount
-  name: controller-controller-manager
-  namespace: controller-system
+  - kind: ServiceAccount
+    name: controller-controller-manager
+    namespace: controller-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -1155,9 +1156,9 @@ roleRef:
   kind: ClusterRole
   name: controller-metrics-auth-role
 subjects:
-- kind: ServiceAccount
-  name: controller-controller-manager
-  namespace: controller-system
+  - kind: ServiceAccount
+    name: controller-controller-manager
+    namespace: controller-system
 ---
 apiVersion: v1
 kind: Service
@@ -1170,10 +1171,10 @@ metadata:
   namespace: controller-system
 spec:
   ports:
-  - name: https
-    port: 8443
-    protocol: TCP
-    targetPort: 8443
+    - name: https
+      port: 8443
+      protocol: TCP
+      targetPort: 8443
   selector:
     app.kubernetes.io/name: controller
     control-plane: controller-manager
@@ -1202,46 +1203,46 @@ spec:
         control-plane: controller-manager
     spec:
       containers:
-      - args:
-        - --metrics-bind-address=:8443
-        - --leader-elect
-        - --health-probe-bind-address=:8081
-        command:
-        - /manager
-        image: quay.io/atantawi/inferno-controller:latest
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: INFERNO_HOST
-            value: "inferno-optimizer.inferno.svc.cluster.local"
-          - name: INFERNO_PORT
-            value: "3302"
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 8081
-          initialDelaySeconds: 15
-          periodSeconds: 20
-        name: manager
-        ports: []
-        readinessProbe:
-          httpGet:
-            path: /readyz
-            port: 8081
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        resources:
-          limits:
-            cpu: 500m
-            memory: 128Mi
-          requests:
-            cpu: 10m
-            memory: 64Mi
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
-        volumeMounts: []
+        - args:
+            - --metrics-bind-address=:8443
+            - --leader-elect
+            - --health-probe-bind-address=:8081
+          command:
+            - /manager
+          image: quay.io/atantawi/inferno-controller:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: INFERNO_HOST
+              value: "inferno-optimizer.inferno.svc.cluster.local"
+            - name: INFERNO_PORT
+              value: "80"
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8081
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          name: manager
+          ports: []
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts: []
       securityContext:
         runAsNonRoot: true
         seccompProfile:
