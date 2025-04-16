@@ -7,6 +7,10 @@ A Kubernetes runtime controller for the [Inferno Optimizer](https://github.ibm.c
 This controller defines the following custom resources and performs reconciliation by invoking REST API calls on the [Inferno Optimizer Server](https://github.ibm.com/ai-platform-research/inferno/tree/main/rest-server).
 The decisions made by the Optimizer are reflected in the `desiredAllocation` specifications of the inference servers.
 
+![inferno-controller](docs/figs/controller.png)
+
+![custom-resources](docs/figs/resources.png)
+
 ### Custom resources
 
 - Accelerator: Static data about accelerators
