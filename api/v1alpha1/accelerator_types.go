@@ -14,15 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1beta1
+package v1alpha1
 
 import (
-	apiv1beta1 "github.com/llm-inferno/api/api/v1beta1"
+	apiv1alpha1 "github.com/llm-inferno/api/api/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // AcceleratorSpec defines the desired state of Accelerator.
-type AcceleratorSpec apiv1beta1.AcceleratorSpec
+type AcceleratorSpec apiv1alpha1.AcceleratorSpec
 
 // AcceleratorStatus defines the observed state of Accelerator.
 type AcceleratorStatus struct {

@@ -22,7 +22,7 @@ spec:
     singular: accelerator
   scope: Namespaced
   versions:
-    - name: v1beta1
+    - name: v1alpha1
       schema:
         openAPIV3Schema:
           description: Accelerator is the Schema for the accelerators API.
@@ -121,7 +121,7 @@ spec:
     singular: capacity
   scope: Namespaced
   versions:
-    - name: v1beta1
+    - name: v1alpha1
       schema:
         openAPIV3Schema:
           description: Capacity is the Schema for the capacities API.
@@ -193,7 +193,7 @@ spec:
     singular: model
   scope: Namespaced
   versions:
-    - name: v1beta1
+    - name: v1alpha1
       schema:
         openAPIV3Schema:
           description: Model is the Schema for the models API.
@@ -278,7 +278,7 @@ spec:
     singular: optimizer
   scope: Namespaced
   versions:
-    - name: v1beta1
+    - name: v1alpha1
       schema:
         openAPIV3Schema:
           description: Optimizer is the Schema for the optimizers API.
@@ -361,7 +361,7 @@ spec:
     singular: server
   scope: Namespaced
   versions:
-    - name: v1beta1
+    - name: v1alpha1
       schema:
         openAPIV3Schema:
           description: Server is the Schema for the servers API.
@@ -497,7 +497,7 @@ spec:
     singular: serviceclass
   scope: Namespaced
   versions:
-    - name: v1beta1
+    - name: v1alpha1
       schema:
         openAPIV3Schema:
           description: ServiceClass is the Schema for the serviceclasses API.

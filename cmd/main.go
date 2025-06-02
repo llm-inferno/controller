@@ -38,7 +38,7 @@ import (
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
-	infernov1beta1 "github.com/llm-inferno/controller/api/v1beta1"
+	infernov1alpha1 "github.com/llm-inferno/controller/api/v1alpha1"
 	"github.com/llm-inferno/controller/internal/controller"
 	// +kubebuilder:scaffold:imports
 )
@@ -51,7 +51,7 @@ var (
 func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
-	utilruntime.Must(infernov1beta1.AddToScheme(scheme))
+	utilruntime.Must(infernov1alpha1.AddToScheme(scheme))
 	// +kubebuilder:scaffold:scheme
 }
 

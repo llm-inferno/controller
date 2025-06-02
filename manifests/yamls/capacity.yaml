@@ -1,4 +1,4 @@
-apiVersion: inferno.platform.ai/v1beta1
+apiVersion: inferno.platform.ai/v1alpha1
 kind: Capacity
 metadata:
   name: capacity

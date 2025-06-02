@@ -25,7 +25,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 
-	infernov1beta1 "github.com/llm-inferno/controller/api/v1beta1"
+	infernov1alpha1 "github.com/llm-inferno/controller/api/v1alpha1"
 )
 
 // ServerReconciler reconciles a Server object
@@ -51,7 +51,7 @@ func (r *ServerReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctr
 	_ = logf.FromContext(ctx)
 
 	// Fetch the object
-	server := &infernov1beta1.Server{}
+	server := &infernov1alpha1.Server{}
 	if err := r.Get(ctx, req.NamespacedName, server); err != nil {
 		logf.Log.Info("Error in getting server object, may have been deleted")
 		return ctrl.Result{}, client.IgnoreNotFound(err)
@@ -96,7 +96,7 @@ func (r *ServerReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctr
 // SetupWithManager sets up the controller with the Manager.
 func (r *ServerReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&infernov1beta1.Server{}).
+		For(&infernov1alpha1.Server{}).
 		WithEventFilter(updatePredicate()).
 		Named("server").
 		Complete(r)

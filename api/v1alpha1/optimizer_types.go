@@ -14,42 +14,48 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1beta1
+package v1alpha1
 
 import (
-	apiv1beta1 "github.com/llm-inferno/api/api/v1beta1"
+	apiv1alpha1 "github.com/llm-inferno/api/api/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// ServerSpec defines the desired state of Server.
-type ServerSpec apiv1beta1.ServerSpec
+// OptimizerSpec defines the desired state of Optimizer.
+type OptimizerSpec struct {
+	Optimize bool          `json:"optimize"` // request to invoke optimizer
+	Data     OptimizerData `json:"data"`     // parameter data for optimizer
+}
 
-// ServerStatus defines the observed state of Server.
-type ServerStatus struct {
-	Active bool `json:"active"` // processed by the optimizer
+type OptimizerData apiv1alpha1.OptimizerData
+type AllocationSolution apiv1alpha1.AllocationSolution
+
+// OptimizerStatus defines the observed state of Optimizer.
+type OptimizerStatus struct {
+	Done bool `json:"done"` // processed by the optimizer
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 
-// Server is the Schema for the servers API.
-type Server struct {
+// Optimizer is the Schema for the optimizers API.
+type Optimizer struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   ServerSpec   `json:"spec,omitempty"`
-	Status ServerStatus `json:"status,omitempty"`
+	Spec   OptimizerSpec   `json:"spec,omitempty"`
+	Status OptimizerStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// ServerList contains a list of Server.
-type ServerList struct {
+// OptimizerList contains a list of Optimizer.
+type OptimizerList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Server `json:"items"`
+	Items           []Optimizer `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&Server{}, &ServerList{})
+	SchemeBuilder.Register(&Optimizer{}, &OptimizerList{})
 }

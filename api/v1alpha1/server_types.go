@@ -14,42 +14,42 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1beta1
+package v1alpha1
 
 import (
-	apiv1beta1 "github.com/llm-inferno/api/api/v1beta1"
+	apiv1alpha1 "github.com/llm-inferno/api/api/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// CapacitySpec defines the desired state of Capacity.
-type CapacitySpec apiv1beta1.CapacityData
+// ServerSpec defines the desired state of Server.
+type ServerSpec apiv1alpha1.ServerSpec
 
-// CapacityStatus defines the observed state of Capacity.
-type CapacityStatus struct {
+// ServerStatus defines the observed state of Server.
+type ServerStatus struct {
 	Active bool `json:"active"` // processed by the optimizer
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 
-// Capacity is the Schema for the capacities API.
-type Capacity struct {
+// Server is the Schema for the servers API.
+type Server struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   CapacitySpec   `json:"spec,omitempty"`
-	Status CapacityStatus `json:"status,omitempty"`
+	Spec   ServerSpec   `json:"spec,omitempty"`
+	Status ServerStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// CapacityList contains a list of Capacity.
-type CapacityList struct {
+// ServerList contains a list of Server.
+type ServerList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Capacity `json:"items"`
+	Items           []Server `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&Capacity{}, &CapacityList{})
+	SchemeBuilder.Register(&Server{}, &ServerList{})
 }

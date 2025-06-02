@@ -26,7 +26,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 
-	infernov1beta1 "github.com/llm-inferno/controller/api/v1beta1"
+	infernov1alpha1 "github.com/llm-inferno/controller/api/v1alpha1"
 )
 
 // ServiceClassReconciler reconciles a ServiceClass object
@@ -52,7 +52,7 @@ func (r *ServiceClassReconciler) Reconcile(ctx context.Context, req ctrl.Request
 	_ = logf.FromContext(ctx)
 
 	// Fetch the object
-	svc := &infernov1beta1.ServiceClass{}
+	svc := &infernov1alpha1.ServiceClass{}
 	if err := r.Get(ctx, req.NamespacedName, svc); err != nil {
 		logf.Log.Info("Error in getting service class object, may have been deleted")
 		return ctrl.Result{}, client.IgnoreNotFound(err)
@@ -96,7 +96,7 @@ func (r *ServiceClassReconciler) Reconcile(ctx context.Context, req ctrl.Request
 	}
 	// add model target data
 	for _, data := range svcSpec.Data {
-		targetData := &infernov1beta1.ServiceClassDataItem{
+		targetData := &infernov1alpha1.ServiceClassDataItem{
 			Name:                  svcName,
 			Priority:              svcPriority,
 			ServiceClassModelData: data,
@@ -121,7 +121,7 @@ func (r *ServiceClassReconciler) Reconcile(ctx context.Context, req ctrl.Request
 // SetupWithManager sets up the controller with the Manager.
 func (r *ServiceClassReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&infernov1beta1.ServiceClass{}).
+		For(&infernov1alpha1.ServiceClass{}).
 		WithEventFilter(updatePredicate()).
 		Named("serviceclass").
 		Complete(r)

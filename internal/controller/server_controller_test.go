@@ -27,7 +27,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	infernov1beta1 "github.com/llm-inferno/controller/api/v1beta1"
+	infernov1alpha1 "github.com/llm-inferno/controller/api/v1alpha1"
 )
 
 var _ = Describe("Server Controller", func() {
@@ -40,13 +40,13 @@ var _ = Describe("Server Controller", func() {
 			Name:      resourceName,
 			Namespace: "default", // TODO(user):Modify as needed
 		}
-		server := &infernov1beta1.Server{}
+		server := &infernov1alpha1.Server{}
 
 		BeforeEach(func() {
 			By("creating the custom resource for the Kind Server")
 			err := k8sClient.Get(ctx, typeNamespacedName, server)
 			if err != nil && errors.IsNotFound(err) {
-				resource := &infernov1beta1.Server{
+				resource := &infernov1alpha1.Server{
 					ObjectMeta: metav1.ObjectMeta{
 						Name:      resourceName,
 						Namespace: "default",
@@ -59,7 +59,7 @@ var _ = Describe("Server Controller", func() {
 
 		AfterEach(func() {
 			// TODO(user): Cleanup logic after each test, like removing the resource instance.
-			resource := &infernov1beta1.Server{}
+			resource := &infernov1alpha1.Server{}
 			err := k8sClient.Get(ctx, typeNamespacedName, resource)
 			Expect(err).NotTo(HaveOccurred())
 

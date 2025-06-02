@@ -27,7 +27,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	infernov1beta1 "github.com/llm-inferno/controller/api/v1beta1"
+	infernov1alpha1 "github.com/llm-inferno/controller/api/v1alpha1"
 )
 
 var _ = Describe("Capacity Controller", func() {
@@ -40,13 +40,13 @@ var _ = Describe("Capacity Controller", func() {
 			Name:      resourceName,
 			Namespace: "default", // TODO(user):Modify as needed
 		}
-		capacity := &infernov1beta1.Capacity{}
+		capacity := &infernov1alpha1.Capacity{}
 
 		BeforeEach(func() {
 			By("creating the custom resource for the Kind Capacity")
 			err := k8sClient.Get(ctx, typeNamespacedName, capacity)
 			if err != nil && errors.IsNotFound(err) {
-				resource := &infernov1beta1.Capacity{
+				resource := &infernov1alpha1.Capacity{
 					ObjectMeta: metav1.ObjectMeta{
 						Name:      resourceName,
 						Namespace: "default",
@@ -59,7 +59,7 @@ var _ = Describe("Capacity Controller", func() {
 
 		AfterEach(func() {
 			// TODO(user): Cleanup logic after each test, like removing the resource instance.
-			resource := &infernov1beta1.Capacity{}
+			resource := &infernov1alpha1.Capacity{}
 			err := k8sClient.Get(ctx, typeNamespacedName, resource)
 			Expect(err).NotTo(HaveOccurred())
 

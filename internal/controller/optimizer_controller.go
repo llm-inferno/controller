@@ -26,7 +26,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 
-	infernov1beta1 "github.com/llm-inferno/controller/api/v1beta1"
+	infernov1alpha1 "github.com/llm-inferno/controller/api/v1alpha1"
 )
 
 // OptimizerReconciler reconciles a Optimizer object
@@ -52,7 +52,7 @@ func (r *OptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 	_ = logf.FromContext(ctx)
 
 	// Fetch the object
-	optimizer := &infernov1beta1.Optimizer{}
+	optimizer := &infernov1alpha1.Optimizer{}
 	if err := r.Get(ctx, req.NamespacedName, optimizer); err != nil {
 		logf.Log.Info("Error in getting optimizer object, may have been deleted")
 		return ctrl.Result{}, client.IgnoreNotFound(err)
@@ -77,7 +77,7 @@ func (r *OptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 	logf.Log.Info("Optimizer " + optimizerName + " created/updated")
 
 	if optimizerSpec.Optimize {
-		solution := infernov1beta1.AllocationSolution{}
+		solution := infernov1alpha1.AllocationSolution{}
 
 		if StateLess {
 			if systemData, err := r.readSystemData(ctx, req); err != nil {
@@ -101,7 +101,7 @@ func (r *OptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 			return ctrl.Result{}, nil
 		}
 
-		serverList := &infernov1beta1.ServerList{}
+		serverList := &infernov1alpha1.ServerList{}
 		opts := []client.ListOption{
 			client.InNamespace(req.NamespacedName.Namespace),
 		}
@@ -142,7 +142,7 @@ func (r *OptimizerReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 // SetupWithManager sets up the controller with the Manager.
 func (r *OptimizerReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&infernov1beta1.Optimizer{}).
+		For(&infernov1alpha1.Optimizer{}).
 		WithEventFilter(updatePredicate()).
 		Named("optimizer").
 		Complete(r)

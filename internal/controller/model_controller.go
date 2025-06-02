@@ -25,7 +25,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 
-	infernov1beta1 "github.com/llm-inferno/controller/api/v1beta1"
+	infernov1alpha1 "github.com/llm-inferno/controller/api/v1alpha1"
 )
 
 // ModelReconciler reconciles a Model object
@@ -51,7 +51,7 @@ func (r *ModelReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl
 	_ = logf.FromContext(ctx)
 
 	// Fetch the object
-	model := &infernov1beta1.Model{}
+	model := &infernov1alpha1.Model{}
 	if err := r.Get(ctx, req.NamespacedName, model); err != nil {
 		logf.Log.Info("Error in getting model object, may have been deleted")
 		return ctrl.Result{}, client.IgnoreNotFound(err)
@@ -93,7 +93,7 @@ func (r *ModelReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl
 	}
 	// add accelerator perf data
 	for _, data := range modelSpec.Data {
-		perfData := &infernov1beta1.ModelAcceleratorPerfData{
+		perfData := &infernov1alpha1.ModelAcceleratorPerfData{
 			Name:                modelName,
 			AcceleratorPerfData: data,
 		}
@@ -117,7 +117,7 @@ func (r *ModelReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl
 // SetupWithManager sets up the controller with the Manager.
 func (r *ModelReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&infernov1beta1.Model{}).
+		For(&infernov1alpha1.Model{}).
 		WithEventFilter(updatePredicate()).
 		Named("model").
 		Complete(r)

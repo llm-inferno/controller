@@ -25,7 +25,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 
-	infernov1beta1 "github.com/llm-inferno/controller/api/v1beta1"
+	infernov1alpha1 "github.com/llm-inferno/controller/api/v1alpha1"
 )
 
 // AcceleratorReconciler reconciles a Accelerator object
@@ -51,7 +51,7 @@ func (r *AcceleratorReconciler) Reconcile(ctx context.Context, req ctrl.Request)
 	_ = logf.FromContext(ctx)
 
 	// Fetch the object
-	accelerator := &infernov1beta1.Accelerator{}
+	accelerator := &infernov1alpha1.Accelerator{}
 	if err := r.Get(ctx, req.NamespacedName, accelerator); err != nil {
 		logf.Log.Info("Error in getting accelerator object, may have been deleted")
 		return ctrl.Result{}, client.IgnoreNotFound(err)
@@ -96,7 +96,7 @@ func (r *AcceleratorReconciler) Reconcile(ctx context.Context, req ctrl.Request)
 // SetupWithManager sets up the controller with the Manager.
 func (r *AcceleratorReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&infernov1beta1.Accelerator{}).
+		For(&infernov1alpha1.Accelerator{}).
 		WithEventFilter(updatePredicate()).
 		Named("accelerator").
 		Complete(r)

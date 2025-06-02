@@ -14,48 +14,42 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1beta1
+package v1alpha1
 
 import (
-	apiv1beta1 "github.com/llm-inferno/api/api/v1beta1"
+	apiv1alpha1 "github.com/llm-inferno/api/api/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// OptimizerSpec defines the desired state of Optimizer.
-type OptimizerSpec struct {
-	Optimize bool          `json:"optimize"` // request to invoke optimizer
-	Data     OptimizerData `json:"data"`     // parameter data for optimizer
-}
+// CapacitySpec defines the desired state of Capacity.
+type CapacitySpec apiv1alpha1.CapacityData
 
-type OptimizerData apiv1beta1.OptimizerData
-type AllocationSolution apiv1beta1.AllocationSolution
-
-// OptimizerStatus defines the observed state of Optimizer.
-type OptimizerStatus struct {
-	Done bool `json:"done"` // processed by the optimizer
+// CapacityStatus defines the observed state of Capacity.
+type CapacityStatus struct {
+	Active bool `json:"active"` // processed by the optimizer
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 
-// Optimizer is the Schema for the optimizers API.
-type Optimizer struct {
+// Capacity is the Schema for the capacities API.
+type Capacity struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   OptimizerSpec   `json:"spec,omitempty"`
-	Status OptimizerStatus `json:"status,omitempty"`
+	Spec   CapacitySpec   `json:"spec,omitempty"`
+	Status CapacityStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// OptimizerList contains a list of Optimizer.
-type OptimizerList struct {
+// CapacityList contains a list of Capacity.
+type CapacityList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []Optimizer `json:"items"`
+	Items           []Capacity `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&Optimizer{}, &OptimizerList{})
+	SchemeBuilder.Register(&Capacity{}, &CapacityList{})
 }

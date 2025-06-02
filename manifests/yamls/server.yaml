@@ -1,4 +1,4 @@
-apiVersion: inferno.platform.ai/v1beta1
+apiVersion: inferno.platform.ai/v1alpha1
 kind: Server
 metadata:
   name: premium-granite-13b
@@ -25,7 +25,7 @@ spec:
       arrivalRate: 0
       avgLength: 0
 ---
-apiVersion: inferno.platform.ai/v1beta1
+apiVersion: inferno.platform.ai/v1alpha1
 kind: Server
 metadata:
   name: free-granite-13b

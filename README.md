@@ -16,7 +16,7 @@ The decisions made by the Optimizer are reflected in the `desiredAllocation` spe
 - Accelerator: Static data about accelerators
 
 ```yaml
-apiVersion: inferno.platform.ai/v1beta1
+apiVersion: inferno.platform.ai/v1alpha1
 kind: Accelerator
 metadata:
   name: a100
@@ -35,7 +35,7 @@ spec:
 - Model: Static data about models and their performance characteristics
 
 ```yaml
-apiVersion: inferno.platform.ai/v1beta1
+apiVersion: inferno.platform.ai/v1alpha1
 kind: Model
 metadata:
   name: granite-13b
@@ -59,7 +59,7 @@ spec:
 - ServiceClass: Static data about service classes
 
 ```yaml
-apiVersion: inferno.platform.ai/v1beta1
+apiVersion: inferno.platform.ai/v1alpha1
 kind: ServiceClass
 metadata:
   name: premium
@@ -78,7 +78,7 @@ spec:
 - Server: Data about inference servers, including current and desired allocation
 
 ``` yaml
-apiVersion: inferno.platform.ai/v1beta1
+apiVersion: inferno.platform.ai/v1alpha1
 kind: Server
 metadata:
   name: premium-granite-13b
@@ -113,7 +113,7 @@ spec:
 - Capacity: Dynamic available accelerator types in the cluster
 
 ```yaml
-apiVersion: inferno.platform.ai/v1beta1
+apiVersion: inferno.platform.ai/v1alpha1
 kind: Capacity
 metadata:
   name: capacity
@@ -128,7 +128,7 @@ spec:
 - Optimizer: Request to optimize, along with optimization parameters
 
 ```yaml
-apiVersion: inferno.platform.ai/v1beta1
+apiVersion: inferno.platform.ai/v1alpha1
 kind: Optimizer
 metadata:
   name: inferno

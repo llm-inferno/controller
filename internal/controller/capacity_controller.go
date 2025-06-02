@@ -25,7 +25,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 
-	infernov1beta1 "github.com/llm-inferno/controller/api/v1beta1"
+	infernov1alpha1 "github.com/llm-inferno/controller/api/v1alpha1"
 )
 
 // CapacityReconciler reconciles a Capacity object
@@ -51,7 +51,7 @@ func (r *CapacityReconciler) Reconcile(ctx context.Context, req ctrl.Request) (c
 	_ = logf.FromContext(ctx)
 
 	// Fetch the object
-	capacity := &infernov1beta1.Capacity{}
+	capacity := &infernov1alpha1.Capacity{}
 	if err := r.Get(ctx, req.NamespacedName, capacity); err != nil {
 		logf.Log.Info("Error in getting capacity object, may have been deleted")
 		return ctrl.Result{}, client.IgnoreNotFound(err)
@@ -98,7 +98,7 @@ func (r *CapacityReconciler) Reconcile(ctx context.Context, req ctrl.Request) (c
 // SetupWithManager sets up the controller with the Manager.
 func (r *CapacityReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&infernov1beta1.Capacity{}).
+		For(&infernov1alpha1.Capacity{}).
 		WithEventFilter(updatePredicate()).
 		Named("capacity").
 		Complete(r)

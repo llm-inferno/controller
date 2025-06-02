@@ -16,8 +16,8 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/predicate"
 
-	apiv1beta1 "github.com/llm-inferno/api/api/v1beta1"
-	infernov1beta1 "github.com/llm-inferno/controller/api/v1beta1"
+	apiv1alpha1 "github.com/llm-inferno/api/api/v1alpha1"
+	infernov1alpha1 "github.com/llm-inferno/controller/api/v1alpha1"
 )
 
 // get URL of a REST server
@@ -118,26 +118,26 @@ func PostAction(url string, verb string, specIn any, specOut any) (err error) {
 
 // read all system data from specifications of resources
 func (r *OptimizerReconciler) readSystemData(ctx context.Context,
-	req ctrl.Request) (systemData *apiv1beta1.SystemData, err error) {
+	req ctrl.Request) (systemData *apiv1alpha1.SystemData, err error) {
 
-	systemSpec := apiv1beta1.SystemSpec{
-		Accelerators: apiv1beta1.AcceleratorData{
-			Spec: make([]apiv1beta1.AcceleratorSpec, 0),
+	systemSpec := apiv1alpha1.SystemSpec{
+		Accelerators: apiv1alpha1.AcceleratorData{
+			Spec: make([]apiv1alpha1.AcceleratorSpec, 0),
 		},
-		Models: apiv1beta1.ModelData{
-			PerfData: make([]apiv1beta1.ModelAcceleratorPerfData, 0),
+		Models: apiv1alpha1.ModelData{
+			PerfData: make([]apiv1alpha1.ModelAcceleratorPerfData, 0),
 		},
-		ServiceClasses: apiv1beta1.ServiceClassData{
-			Spec: make([]apiv1beta1.ServiceClassSpec, 0),
+		ServiceClasses: apiv1alpha1.ServiceClassData{
+			Spec: make([]apiv1alpha1.ServiceClassSpec, 0),
 		},
-		Servers: apiv1beta1.ServerData{
-			Spec: make([]apiv1beta1.ServerSpec, 0),
+		Servers: apiv1alpha1.ServerData{
+			Spec: make([]apiv1alpha1.ServerSpec, 0),
 		},
-		Optimizer: apiv1beta1.OptimizerData{
-			Spec: apiv1beta1.OptimizerSpec{},
+		Optimizer: apiv1alpha1.OptimizerData{
+			Spec: apiv1alpha1.OptimizerSpec{},
 		},
-		Capacity: apiv1beta1.CapacityData{
-			Count: make([]apiv1beta1.AcceleratorCount, 0),
+		Capacity: apiv1alpha1.CapacityData{
+			Count: make([]apiv1alpha1.AcceleratorCount, 0),
 		},
 	}
 
@@ -146,7 +146,7 @@ func (r *OptimizerReconciler) readSystemData(ctx context.Context,
 	}
 
 	// get optimizer data
-	optimizerList := &infernov1beta1.OptimizerList{}
+	optimizerList := &infernov1alpha1.OptimizerList{}
 	if err = r.List(ctx, optimizerList, opts...); err != nil {
 		logf.Log.Error(err, "failed to get optimizer list")
 		return nil, err
@@ -160,25 +160,25 @@ func (r *OptimizerReconciler) readSystemData(ctx context.Context,
 	systemSpec.Optimizer.Spec = optimizer.Spec.Data.Spec
 
 	// get accelerator data
-	acceleratorList := &infernov1beta1.AcceleratorList{}
+	acceleratorList := &infernov1alpha1.AcceleratorList{}
 	if err = r.List(ctx, acceleratorList, opts...); err != nil {
 		logf.Log.Error(err, "failed to get accelerator list")
 		return nil, err
 	}
 	for _, accelerator := range acceleratorList.Items {
 		systemSpec.Accelerators.Spec = append(systemSpec.Accelerators.Spec,
-			apiv1beta1.AcceleratorSpec(accelerator.Spec))
+			apiv1alpha1.AcceleratorSpec(accelerator.Spec))
 	}
 
 	// get model data
-	modelList := &infernov1beta1.ModelList{}
+	modelList := &infernov1alpha1.ModelList{}
 	if err = r.List(ctx, modelList, opts...); err != nil {
 		logf.Log.Error(err, "failed to get model list")
 		return nil, err
 	}
 	for _, model := range modelList.Items {
 		for _, data := range model.Spec.Data {
-			perfData := &apiv1beta1.ModelAcceleratorPerfData{
+			perfData := &apiv1alpha1.ModelAcceleratorPerfData{
 				Name:         model.Spec.Name,
 				Acc:          data.Acc,
 				AccCount:     data.AccCount,
@@ -193,14 +193,14 @@ func (r *OptimizerReconciler) readSystemData(ctx context.Context,
 	}
 
 	// get service class data
-	svcList := &infernov1beta1.ServiceClassList{}
+	svcList := &infernov1alpha1.ServiceClassList{}
 	if err = r.List(ctx, svcList, opts...); err != nil {
 		logf.Log.Error(err, "failed to get service class list")
 		return nil, err
 	}
 	for _, svc := range svcList.Items {
 		for _, data := range svc.Spec.Data {
-			svcSpec := &apiv1beta1.ServiceClassSpec{
+			svcSpec := &apiv1alpha1.ServiceClassSpec{
 				Name:     svc.Spec.Name,
 				Priority: svc.Spec.Priority,
 				Model:    data.Model,
@@ -214,18 +214,18 @@ func (r *OptimizerReconciler) readSystemData(ctx context.Context,
 	}
 
 	// get server data
-	serverList := &infernov1beta1.ServerList{}
+	serverList := &infernov1alpha1.ServerList{}
 	if err = r.List(ctx, serverList, opts...); err != nil {
 		logf.Log.Error(err, "failed to get server list")
 		return nil, err
 	}
 	for _, server := range serverList.Items {
 		systemSpec.Servers.Spec = append(systemSpec.Servers.Spec,
-			apiv1beta1.ServerSpec(server.Spec))
+			apiv1alpha1.ServerSpec(server.Spec))
 	}
 
 	// get capacity data
-	capacityList := &infernov1beta1.CapacityList{}
+	capacityList := &infernov1alpha1.CapacityList{}
 	if err := r.List(ctx, capacityList, opts...); err != nil {
 		logf.Log.Error(err, "failed to get capacity list")
 		return nil, err
@@ -235,7 +235,7 @@ func (r *OptimizerReconciler) readSystemData(ctx context.Context,
 			capacity.Spec.Count...)
 	}
 
-	systemData = &apiv1beta1.SystemData{
+	systemData = &apiv1alpha1.SystemData{
 		Spec: systemSpec,
 	}
 	return systemData, nil
