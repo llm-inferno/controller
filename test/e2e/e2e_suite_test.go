@@ -25,7 +25,7 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 
-	"github.ibm.com/inferno/controller/test/utils"
+	"github.com/llm-inferno/controller/test/utils"
 )
 
 var (

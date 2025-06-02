@@ -17,7 +17,7 @@ limitations under the License.
 package v1beta1
 
 import (
-	apiv1beta1 "github.ibm.com/inferno/api/api/v1beta1"
+	apiv1beta1 "github.com/llm-inferno/api/api/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 

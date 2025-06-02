@@ -16,8 +16,8 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/predicate"
 
-	apiv1beta1 "github.ibm.com/inferno/api/api/v1beta1"
-	infernov1beta1 "github.ibm.com/inferno/controller/api/v1beta1"
+	apiv1beta1 "github.com/llm-inferno/api/api/v1beta1"
+	infernov1beta1 "github.com/llm-inferno/controller/api/v1beta1"
 )
 
 // get URL of a REST server

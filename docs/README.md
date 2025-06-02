@@ -16,7 +16,7 @@ docker exec -it mycluster-control-plane crictl images
 
 ## Deploy REST API inferno optimizer
 
-`$INFERNO_REPO` is the path to the cloned [inferno optimizer repository](https://github.ibm.com/ai-platform-research/inferno).
+`$INFERNO_REPO` is the path to the cloned [inferno optimizer repository](https://github.com/llm-inferno/inferno).
 This will create a namespace `inferno`, a deployment `inferno-optimizer`, and a service `inferno-optimizer`.
 
 ```bash
@@ -32,7 +32,7 @@ kubectl logs -f $POD_OPT -n inferno
 
 ## Deploy inferno controller
 
-`$INFERNO_CTRL_REPO` is the path to the cloned [inferno controller repository](https://github.ibm.com/inferno/controller).
+`$INFERNO_CTRL_REPO` is the path to the cloned [inferno controller repository](https://github.com/llm-inferno/controller).
 This will create namespace `controller-system`, install the CRDs, a deployment `controller-controller-manager`, as well as required RBACs and services.
 
 ```bash

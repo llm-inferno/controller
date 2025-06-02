@@ -38,8 +38,8 @@ import (
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
-	infernov1beta1 "github.ibm.com/inferno/controller/api/v1beta1"
-	"github.ibm.com/inferno/controller/internal/controller"
+	infernov1beta1 "github.com/llm-inferno/controller/api/v1beta1"
+	"github.com/llm-inferno/controller/internal/controller"
 	// +kubebuilder:scaffold:imports
 )
 

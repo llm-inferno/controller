@@ -32,7 +32,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	infernov1beta1 "github.ibm.com/inferno/controller/api/v1beta1"
+	infernov1beta1 "github.com/llm-inferno/controller/api/v1beta1"
 	// +kubebuilder:scaffold:imports
 )
 

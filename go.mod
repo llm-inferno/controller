@@ -1,4 +1,4 @@
-module github.ibm.com/inferno/controller
+module github.com/llm-inferno/controller
 
 go 1.24.0
 
@@ -7,9 +7,9 @@ toolchain go1.24.2
 godebug default=go1.23
 
 require (
+	github.com/llm-inferno/api v0.0.0-20250602142025-bddd157f9f4e
 	github.com/onsi/ginkgo/v2 v2.22.0
 	github.com/onsi/gomega v1.36.1
-	github.ibm.com/inferno/api v0.0.0-20250411155600-4e963b549417
 	k8s.io/apimachinery v0.32.1
 	k8s.io/client-go v0.32.1
 	sigs.k8s.io/controller-runtime v0.20.4

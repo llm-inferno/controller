@@ -1,10 +1,10 @@
 # Inferno Controller
 
-A Kubernetes runtime controller for the [Inferno Optimizer](https://github.ibm.com/ai-platform-research/inferno).
+A Kubernetes runtime controller for the [Inferno Optimizer](https://github.com/llm-inferno/inferno).
 
 ## Description
 
-This controller defines the following custom resources and performs reconciliation by invoking REST API calls on the [Inferno Optimizer Server](https://github.ibm.com/ai-platform-research/inferno/tree/main/rest-server).
+This controller defines the following custom resources and performs reconciliation by invoking REST API calls on the [Inferno Optimizer Server](https://github.com/llm-inferno/inferno/tree/main/rest-server).
 The decisions made by the Optimizer are reflected in the `desiredAllocation` specifications of the inference servers.
 
 ![inferno-controller](docs/figs/controller.png)
@@ -161,8 +161,6 @@ The controller works in one of two modes: Statefull and Stateless (default), thr
 ### To Deploy on the cluster
 
 **Build and push your image to the location specified by `IMG`:**
-
-Since some repositories are on private github, a vendor directory needs to be created using `go mod vendor`.
 
 ```sh
 make docker-build docker-push IMG=<some-registry>/controller:tag

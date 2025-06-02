@@ -27,7 +27,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	infernov1beta1 "github.ibm.com/inferno/controller/api/v1beta1"
+	infernov1beta1 "github.com/llm-inferno/controller/api/v1beta1"
 )
 
 var _ = Describe("Model Controller", func() {
