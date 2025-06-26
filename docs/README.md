@@ -16,7 +16,7 @@ docker exec -it mycluster-control-plane crictl images
 
 ## Deploy REST API inferno optimizer
 
-`$INFERNO_REPO` is the path to the cloned [inferno optimizer repository](https://github.com/llm-inferno/inferno).
+`$INFERNO_REPO` is the path to the cloned [inferno optimizer repository](https://github.com/llm-inferno/optimizer).
 This will create a namespace `inferno`, a deployment `inferno-optimizer`, and a service `inferno-optimizer`.
 
 ```bash

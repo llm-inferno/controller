@@ -1,10 +1,10 @@
 # Inferno Controller
 
-A Kubernetes runtime controller for the [Inferno Optimizer](https://github.com/llm-inferno/inferno).
+A Kubernetes runtime controller for the [Inferno Optimizer](https://github.com/llm-inferno/optimizer).
 
 ## Description
 
-This controller defines the following custom resources and performs reconciliation by invoking REST API calls on the [Inferno Optimizer Server](https://github.com/llm-inferno/inferno/tree/main/rest-server).
+This controller defines the following custom resources and performs reconciliation by invoking REST API calls on the [Inferno Optimizer Server](https://github.com/llm-inferno/optimizer/tree/main/rest-server).
 The decisions made by the Optimizer are reflected in the `desiredAllocation` specifications of the inference servers.
 
 ![inferno-controller](docs/figs/controller.png)
