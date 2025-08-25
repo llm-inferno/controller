@@ -199,18 +199,21 @@ func (r *OptimizerReconciler) readSystemData(ctx context.Context,
 		return nil, err
 	}
 	for _, svc := range svcList.Items {
-		for _, data := range svc.Spec.Data {
-			svcSpec := &apiv1alpha1.ServiceClassSpec{
-				Name:     svc.Spec.Name,
-				Priority: svc.Spec.Priority,
-				Model:    data.Model,
-				SLO_ITL:  data.SLO_ITL,
-				SLO_TTW:  data.SLO_TTW,
-				SLO_TPS:  data.SLO_TPS,
-			}
-			systemSpec.ServiceClasses.Spec = append(systemSpec.ServiceClasses.Spec,
-				*svcSpec)
+		svcSpec := &apiv1alpha1.ServiceClassSpec{
+			Name:         svc.Spec.Name,
+			Priority:     svc.Spec.Priority,
+			ModelTargets: make([]apiv1alpha1.ModelTarget, len(svc.Spec.Data)),
 		}
+		for i, data := range svc.Spec.Data {
+			svcSpec.ModelTargets[i] = apiv1alpha1.ModelTarget{
+				Model:   data.Model,
+				SLO_ITL: data.SLO_ITL,
+				SLO_TTW: data.SLO_TTW,
+				SLO_TPS: data.SLO_TPS,
+			}
+		}
+		systemSpec.ServiceClasses.Spec = append(systemSpec.ServiceClasses.Spec,
+			*svcSpec)
 	}
 
 	// get server data

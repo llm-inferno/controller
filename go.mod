@@ -7,7 +7,7 @@ toolchain go1.24.2
 godebug default=go1.23
 
 require (
-	github.com/llm-inferno/api v0.1.0
+	github.com/llm-inferno/api v0.2.0
 	github.com/onsi/ginkgo/v2 v2.22.0
 	github.com/onsi/gomega v1.36.1
 	k8s.io/apimachinery v0.32.1
